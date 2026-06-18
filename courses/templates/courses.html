@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+
+{% block title %}
+All Courses - Catalog
+{% endblock title %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="row g-4">
+    
+    <!-- Sidebar Filters (Visible on desktop) -->
+    <aside class="col-lg-3 d-none d-lg-block">
+      <div class="card border-0 shadow-sm p-4 sticky-top" style="top: 100px; z-index: 1;">
+        <h5 class="fw-bold mb-3"><i class="bi bi-filter-left me-2"></i>Filters</h5>
+        
+        <div class="mb-4">
+          <h6 class="fw-semibold text-dark small text-uppercase mb-2">Category</h6>
+          <div class="form-check mb-1">
+            <input class="form-check-input category-filter" type="checkbox" value="Web Development" id="webDev">
+            <label class="form-check-label small" for="webDev">Web Development</label>
+          </div>
+          <div class="form-check mb-1">
+            <input class="form-check-input category-filter" type="checkbox" value="Data Science & AI" id="dataSci">
+            <label class="form-check-label small" for="dataSci">Data Science & AI</label>
+          </div>
+          <div class="form-check mb-1">
+            <input class="form-check-input category-filter" type="checkbox" value="UI/UX Design" id="design">
+            <label class="form-check-label small" for="design">UI/UX Design</label>
+          </div>
+          <div class="form-check mb-1">
+            <input class="form-check-input category-filter" type="checkbox" value="Cloud Engineering & DevOps" id="Devops">
+            <label class="form-check-label small" for="Devops">Cloud Engineering & DevOps</label>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h6 class="fw-semibold text-dark small text-uppercase mb-2">Level</h6>
+          <div class="form-check mb-1">
+            <input class="form-check-input level-filter" type="checkbox" value="Beginner" id="levelBeg">
+            <label class="form-check-label small" for="levelBeg">Beginner</label>
+          </div>
+          <div class="form-check mb-1">
+            <input class="form-check-input level-filter" type="checkbox" value="Intermediate" id="levelInt">
+            <label class="form-check-label small" for="levelInt">Intermediate</label>
+          </div>
+          <div class="form-check mb-1">
+            <input class="form-check-input level-filter" type="checkbox" value="Advanced" id="levelAdv">
+            <label class="form-check-label small" for="levelAdv">Advanced</label>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-secondary btn-sm w-100 mt-2" id="clearAllBtn">Clear All</button>
+      </div>
+    </aside>
+
+    <!-- Main Course Catalog Feed -->
+    <main class="col-lg-9">
+      
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-3 mb-4">
+        <div>
+          <h2 class="fw-bold mb-1">All Available Courses</h2>
+          <p class="text-muted mb-0 small">Invest in your career growth with industry experts</p>
+        </div>
+        <div class="d-flex flex-column flex-sm-row gap-2 mt-3 mt-md-0 w-50 w-md-auto">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+            <input type="text" id="courseSearch" class="form-control border-start-0" placeholder="Search courses...">
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        {% for course in courses %}
+          <div class="col course-card" data-category="{{ course.get_category_display }}" data-level="{{ course.get_level_display }}">
+            <div class="card h-100 border-0 shadow-sm transition-hover">
+              
+              <div class="position-relative bg-dark text-white text-center py-5 d-flex justify-content-center align-items-center rounded-top" 
+                   style="height: 160px; background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);">
+                <i class="bi bi-journal-code display-4 opacity-75"></i>
+                <span class="position-absolute top-0 start-0 m-3 badge bg-dark opacity-75 small">
+                   {{ course.category }} 
+                </span>
+              </div>
+
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold text-dark fs-6 mb-2">{{ course.name }}</h5>
+                <p class="card-text text-muted small flex-grow-1">
+                   {{ course.description|truncatechars:50 }} 
+                </p>
+                
+                <div class="d-flex align-items-center mb-3">
+                  <span class="text-warning me-1 small"><i class="bi bi-star-fill"></i> 4.8</span>
+                  <span class="text-muted text-xxs" style="font-size: 0.8rem;">(1,420 ratings)</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
+                  <div>
+                    <span class="text-dark fw-bold">Rs {{ course.price }}</span>
+                    {% if course.old_price or not course.price %}
+                    <span class="text-muted text-decoration-line-through small ms-1" style="font-size: 0.8rem;">$199.99</span>
+                    {% endif %}
+                  </div>
+                  <a href="/courses/{{ course.id }}" class="btn btn-sm btn-outline-primary px-3 fw-semibold">Learn More</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        {% empty %}
+          <div class="col-12 text-center py-5">
+            <div class="p-4 bg-white rounded-3 shadow-sm border">
+              <i class="bi bi-folder-x display-3 text-muted mb-2"></i>
+              <h5 class="text-dark fw-bold">No courses available in this catalog.</h5>
+            </div>
+          </div>
+        {% endfor %}
+        
+        <div id="noResultsBlock" class="col-12 text-center py-5" style="display: none;">
+          <div class="p-4 bg-white rounded-3 shadow-sm border">
+            <i class="bi bi-search display-3 text-muted mb-2"></i>
+            <h5 class="text-dark fw-bold">No matching courses found</h5>
+            <p class="text-muted small">Try adjusting your keywords or active checkbox filters.</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    const cards = document.querySelectorAll('.course-card');
+    const searchInput = document.getElementById('courseSearch');
+    const clearBtn = document.getElementById('clearAllBtn');
+    const noResultsBlock = document.getElementById('noResultsBlock');
+
+    // Attach listeners
+    checkboxes.forEach(box => box.addEventListener('change', filterCourses));
+    if (searchInput) searchInput.addEventListener('input', filterCourses);
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function() {
+        checkboxes.forEach(box => box.checked = false);
+        if (searchInput) searchInput.value = '';
+        filterCourses();
+      });
+    }
+
+    function filterCourses() {
+      // Collect filter states and clean up text queries
+      const checkedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value.trim().toLowerCase());
+      const checkedLevels = Array.from(document.querySelectorAll('.level-filter:checked')).map(cb => cb.value.trim().toLowerCase());
+      const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+      let foundAnyMatches = false;
+
+      // Evaluate all available product cards
+      cards.forEach(card => {
+        // Safe data extraction, lowercasing, and trimming in JS to bypass Django template whitespace
+        const cardCategory = (card.getAttribute('data-category') || '').trim().toLowerCase();
+        const cardLevel = (card.getAttribute('data-level') || '').trim().toLowerCase();
+
+        const cardTitle = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.toLowerCase() : '';
+        const cardText = card.querySelector('.card-text') ? card.querySelector('.card-text').textContent.toLowerCase() : '';
+
+        // Conditions checks
+        const categoryMatch = checkedCategories.length === 0 || checkedCategories.includes(cardCategory);
+        const levelMatch = checkedLevels.length === 0 || checkedLevels.includes(cardLevel);
+        const searchMatch = searchQuery === '' || cardTitle.includes(searchQuery) || cardText.includes(searchQuery);
+
+        // Explicitly force style assignments block
+        if (categoryMatch && levelMatch && searchMatch) {
+          card.style.setProperty('display', 'block', 'important');
+          foundAnyMatches = true; 
+        } else {
+          card.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      // Toggle Empty State Box with complete priority
+      if (noResultsBlock) {
+        if (!foundAnyMatches) {
+          noResultsBlock.style.setProperty('display', 'block', 'important');
+        } else {
+          noResultsBlock.style.setProperty('display', 'none', 'important');
+        }
+      }
+    }
+  });
+</script>
+{% endblock content %}

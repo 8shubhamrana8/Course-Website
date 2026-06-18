@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ course.name }} - EduStream
+{% endblock title %}
+
+{% block content %}
+<div class="bg-dark text-white pt-5 pb-4 mb-5" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'courses' %}" class="text-info text-decoration-none">Courses</a></li>
+            <li class="breadcrumb-item text-light active" aria-current="page">{{ course.get_category_display }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="display-4 fw-bold mb-3">{{ course.name }}</h1>
+        <p class="lead text-light opacity-75 mb-4">Master the fundamentals and advanced concepts of {{ course.name }} with this comprehensive, industry-aligned curriculum.</p>
+        
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <span class="badge bg-info text-dark px-3 py-2"><i class="bi bi-tag-fill me-1"></i> {{ course.get_category_display }}</span>
+          <span class="badge bg-secondary px-3 py-2"><i class="bi bi-bar-chart-fill me-1"></i> {{ course.get_level_display }}</span>
+          <span class="badge bg-secondary px-3 py-2"><i class="bi bi-clock-fill me-1"></i> {{ course.get_duration_display }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5">
+  <div class="row g-5">
+    
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4 p-md-5">
+          <h3 class="fw-bold mb-4">Course Description</h3>
+          <p class="text-secondary lh-lg mb-0" style="white-space: pre-line;">
+            {{ course.description }}
+          </p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <h4 class="fw-bold mb-4">What You Will Learn</h4>
+          <div class="row g-3">
+            <div class="col-md-6 d-flex align-items-start">
+              <i class="bi bi-check-circle-fill text-info me-3 mt-1"></i>
+              <span class="text-secondary">Complete practical understanding of {{ course.name }} workflows.</span>
+            </div>
+            <div class="col-md-6 d-flex align-items-start">
+              <i class="bi bi-check-circle-fill text-info me-3 mt-1"></i>
+              <span class="text-secondary">Hands-on projects to build out your portfolio.</span>
+            </div>
+            <div class="col-md-6 d-flex align-items-start">
+              <i class="bi bi-check-circle-fill text-info me-3 mt-1"></i>
+              <span class="text-secondary">Industry best practices and standard methodologies.</span>
+            </div>
+            <div class="col-md-6 d-flex align-items-start">
+              <i class="bi bi-check-circle-fill text-info me-3 mt-1"></i>
+              <span class="text-secondary">Preparation for real-world scenarios and interviews.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm sticky-top" style="top: 100px; z-index: 1;border-radius: 12px; overflow: hidden;">
+        
+        <div class="bg-secondary d-flex justify-content-center align-items-center" style="height: 220px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);">
+          <i class="bi bi-play-circle-fill display-1 text-white opacity-75 transition-hover" style="cursor: pointer;"></i>
+        </div>
+
+        <div class="card-body p-4">
+          <div class="mb-4">
+            {% if course.discount > 0 %}
+              <div class="d-flex align-items-end mb-1">
+                <h2 class="fw-bold mb-0 me-2 text-dark">Rs.{{ course.actual_price }}</h2>
+                <span class="text-muted text-decoration-line-through fs-5">Rs.{{ course.price }}</span>
+              </div>
+              <span class="badge bg-danger mb-2"><i class="bi bi-stars"></i> Special Discount Applied</span>
+            {% else %}
+              <h2 class="fw-bold mb-0 text-dark">Rs.{{ course.price }}</h2>
+            {% endif %}
+          </div>
+
+          <button class="btn btn-brand w-100 py-3 fw-bold mb-2 fs-5 shadow-sm">Enroll Now</button>
+          <button class="btn btn-outline-secondary w-100 py-2 fw-semibold mb-4"><i class="bi bi-cart-plus me-2"></i>Add to Cart</button>
+
+          <h6 class="fw-bold text-uppercase text-muted small mb-3">Course Includes:</h6>
+          <ul class="list-unstyled text-secondary small d-flex flex-column gap-3 mb-0">
+            <li><i class="bi bi-clock me-3 text-info fs-5 align-middle"></i> <strong>Duration:</strong> {{ course.get_duration_display }}</li>
+            <li><i class="bi bi-bar-chart-steps me-3 text-info fs-5 align-middle"></i> <strong>Level:</strong> {{ course.get_level_display }}</li>
+            <li><i class="bi bi-phone me-3 text-info fs-5 align-middle"></i> Access on mobile and TV</li>
+            <li><i class="bi bi-infinity me-3 text-info fs-5 align-middle"></i> Full lifetime access</li>
+            <li><i class="bi bi-trophy me-3 text-info fs-5 align-middle"></i> Certificate of completion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock content %}

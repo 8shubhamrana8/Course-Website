@@ -1,0 +1,146 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home - Learn from Industry Experts
+{% endblock title %}
+
+{% block content %}
+<!-- 1. Hero Section -->
+<section class="py-5 text-white position-relative" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); overflow: hidden;">
+  <!-- Subtle decorative abstract shapes -->
+  <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10" style="background-image: radial-gradient(#06b6d4 1px, transparent 1px); background-size: 20px 20px;"></div>
+  
+  <div class="container py-5 position-relative" style="z-index: 2;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 text-center text-lg-start">
+        <span class="badge bg-info text-dark fw-bold px-3 py-2 rounded-pill uppercase tracking-wider mb-3">🚀 Fuel Your Tech Career</span>
+        <h1 class="display-4 fw-extrabold text-white mb-3">
+          Master the Skills That <span style="color: #06b6d4;">Command</span> the Future
+        </h1>
+        <p class="lead text-light opacity-90 mb-4">
+          Access structured, production-grade video blueprints covering modern programming ecosystems, infrastructure design, and UX interfaces—taught directly by working engineers.
+        </p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+          <a href="/courses" class="btn btn-brand btn-lg px-4 fw-bold shadow-sm">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i>Explore Courses
+          </a>
+          {% if not user.is_authenticated %}
+          <a href="{% url 'signup' %}" class="btn btn-outline-light btn-lg px-4 fw-semibold">
+            Join Free Today
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block text-center">
+        <!-- Modern illustrative icon placeholder representing streaming education -->
+        <div class="p-5 inline-block rounded-4 bg-opacity-10 bg-light border border-secondary shadow-lg" style="backdrop-filter: blur(8px);">
+          <i class="bi bi-display-fill text-info" style="font-size: 8rem; filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.4));"></i>
+          <div class="mt-2 text-white-50 small"><i class="bi bi-shield-check text-success me-1"></i> Sandboxed Testing & Code Environments Active</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Core Platform Value Features -->
+<section class="py-5 bg-white border-bottom">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-md-4">
+        <div class="p-3">
+          <div class="d-inline-flex align-items-center justify-content-center bg-light text-primary rounded-circle p-3 mb-3" style="width: 60px; height: 60px;">
+            <i class="bi bi-clock-history fs-4 text-info"></i>
+          </div>
+          <h5 class="fw-bold">Lifetime Flexible Access</h5>
+          <p class="text-muted small mb-0">Learn on your own schedule. Study bite-sized video modules fluidly across desktop, tablet, or smartphone contexts.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3">
+          <div class="d-inline-flex align-items-center justify-content-center bg-light text-primary rounded-circle p-3 mb-3" style="width: 60px; height: 60px;">
+            <i class="bi bi-cpu fs-4" style="color: #4f46e5;"></i>
+          </div>
+          <h5 class="fw-bold">Project-Driven Blueprints</h5>
+          <p class="text-muted small mb-0">Skip arbitrary toy tasks. Build robust, resume-ready applications with modern frameworks, databases, and safe cloud architecture.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3">
+          <div class="d-inline-flex align-items-center justify-content-center bg-light text-primary rounded-circle p-3 mb-3" style="width: 60px; height: 60px;">
+            <i class="bi bi-patch-check-fill fs-4 text-success"></i>
+          </div>
+          <h5 class="fw-bold">Verified Course Credentials</h5>
+          <p class="text-muted small mb-0">Earn structured graduation credentials and cryptographic links to prove technical competencies to prospective tech headhunters.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Top Specialized Categories -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center max-w-xl mx-auto mb-5">
+      <h2 class="fw-bold text-dark">Targeted Learning Pathways</h2>
+      <p class="text-muted small">Choose your focus area and dive deep into industry-vetted technical curricula.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Web Dev -->
+      <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm text-center p-4 transition-hover">
+          <div class="mx-auto mb-3 text-primary d-flex align-items-center justify-content-center rounded" style="width: 50px; height: 50px; background-color: #f5f3ff;">
+            <i class="bi bi-code-slash fs-4" style="color: #4f46e5;"></i>
+          </div>
+          <h6 class="fw-bold mb-2">Web Development</h6>
+          <p class="text-muted text-xs small flex-grow-1">Master frontend layout structures, relational database schemas, and dynamic servers using Django and JavaScript.</p>
+        </div>
+      </div>
+
+      <!-- Data Science -->
+      <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm text-center p-4 transition-hover">
+          <div class="mx-auto mb-3 text-info d-flex align-items-center justify-content-center rounded" style="width: 50px; height: 50px; background-color: #ecfeff;">
+            <i class="bi bi-bar-chart-line-fill fs-4 text-info"></i>
+          </div>
+          <h6 class="fw-bold mb-2">Data Science & AI</h6>
+          <p class="text-muted text-xs small flex-grow-1">Analyze complex tracking matrices, leverage predictive model libraries, and train algorithmic weights safely.</p>
+        </div>
+      </div>
+
+      <!-- UI/UX Design -->
+      <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm text-center p-4 transition-hover">
+          <div class="mx-auto mb-3 text-warning d-flex align-items-center justify-content-center rounded" style="width: 50px; height: 50px; background-color: #fffbef;">
+            <i class="bi bi-vector-pen fs-4 text-warning"></i>
+          </div>
+          <h6 class="fw-bold mb-2">UI/UX Design</h6>
+          <p class="text-muted text-xs small flex-grow-1">Construct high-fidelity layout wireframes, interactive user flows, and modern design system components.</p>
+        </div>
+      </div>
+
+      <!-- DevOps -->
+      <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm text-center p-4 transition-hover">
+          <div class="mx-auto mb-3 text-success d-flex align-items-center justify-content-center rounded" style="width: 50px; height: 50px; background-color: #f0fdf4;">
+            <i class="bi bi-cloud-check-fill fs-4 text-success"></i>
+          </div>
+          <h6 class="fw-bold mb-2">Cloud & DevOps</h6>
+          <p class="text-muted text-xs small flex-grow-1">Deploy production application bundles securely using modern isolated containers and managed infrastructure nodes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Inline micro-style additions for crisp hover actions -->
+<style>
+  .transition-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .transition-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.08)!important;
+  }
+</style>
+{% endblock content %}0

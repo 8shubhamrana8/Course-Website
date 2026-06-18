@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Learnify{% endblock title %} - EduPlatform</title>
+  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom Styling for E-Learning Theme -->
+  <style>
+    :root {
+      --primary-color: #4f46e5; /* Modern Indigo */
+      --secondary-color: #06b6d4; /* Tailwind Cyan */
+      --dark-bg: #0f172a; /* Slate 900 */
+    }
+    body {
+      background-color: #f8fafc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .btn-brand {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    .btn-brand:hover {
+      background-color: #4338ca;
+      color: white;
+    }
+    main {
+      flex: 1;
+    }
+    footer {
+      background-color: var(--dark-bg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+    <div class="container">
+      <a class="navbar-brand text-white d-flex align-items-center" href="/">
+        <i class="bi bi-mortarboard-fill me-2 text-info"></i>
+        <span>Edu<span class="text-info">Stream</span></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="/courses">Browse Courses</a>
+          </li>
+          <!-- Authentication State (Placeholder logic) -->
+          {% if user.is_authenticated %}
+            <li class="nav-item ms-2">
+              <a class="btn btn-brand" href="{% url 'home' %}">
+                <i class="bi bi-speedometer2 me-1"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item ms-2">
+              <form action="{% url 'logout' %}" method="POST" class="m-0 d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">Log Out</button>
+              </form>
+            </li>
+
+          {% else %}
+            <li class="nav-item ms-2">
+              <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-brand" href="{% url 'signup' %}">Sign Up</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Block -->
+  <main class="py-4">
+    {% block content %}
+    <!-- Child templates will inject their content here -->
+    {% endblock content %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-light py-5 mt-auto">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <h5 class="text-white mb-3"><i class="bi bi-mortarboard-fill text-info me-2"></i>EduStream</h5>
+          <p class="text-white small">Empowering learners worldwide with affordable, top-tier tech and business education straight from industry professionals.</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6 class="text-white mb-3">Explore</h6>
+          <ul class="list-unstyled text-white small">
+            <li><a href="#" class="text-decoration-none text-reset">Web Development</a></li>
+            <li><a href="#" class="text-decoration-none text-reset">Data Science</a></li>
+            <li><a href="#" class="text-decoration-none text-reset">Digital Marketing</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h6 class="text-white mb-3">Community</h6>
+          <ul class="list-unstyled text-white small">
+            <li><a href="#" class="text-decoration-none text-reset">Instructors</a></li>
+            <li><a href="#" class="text-decoration-none text-reset">Affiliate Program</a></li>
+            <li><a href="#" class="text-decoration-none text-reset">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h6 class="text-white mb-3">Subscribe to our Newsletter</h6>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control bg-dark border-secondary text-white" placeholder="Email address" aria-label="Recipient's username">
+            <button class="btn btn-info text-white" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary my-4">
+      <div class="d-flex flex-column flex-sm-row justify-content-between small text-white">
+        <p>&copy; 2026 EduStream, Inc. All rights reserved.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-reset"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-reset"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-reset"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
